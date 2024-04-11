@@ -1,0 +1,18 @@
+[
+    {
+        "nameTeam": "team1",
+        "score": 80
+    },
+    {
+        "nameTeam": "team2",
+        "score": 110
+    },
+    {
+        "nameTeam": "team3",
+        "score": 25
+    },
+    {
+        "nameTeam": "team4",
+        "score": 140
+    }
+]

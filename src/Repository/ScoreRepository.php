@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Dto\ScoreDto;
 use App\Entity\Score;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,28 +22,24 @@ class ScoreRepository extends ServiceEntityRepository
         parent::__construct($registry, Score::class);
     }
 
-    //    /**
-    //     * @return Score[] Returns an array of Score objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Score
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * @return ScoreDto[] Returns an array of ScoreDto objects
+     */
+    public function findScore(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->select(sprintf(
+                'NEW %s(
+                    t.name,
+                    SUM(tk.valueToken)
+                )',
+                ScoreDto::class
+            ))
+            ->innerJoin('s.team', 't')
+            ->innerJoin('s.tokens', 'tk')
+            ->groupBy('t.name')
+            ->orderBy('s.dateScore')
+            ->getQuery()
+            ->getResult();
+    }
 }

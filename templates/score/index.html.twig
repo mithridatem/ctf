@@ -1,0 +1,37 @@
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"/>
+	<link rel="stylesheet" href="{{ asset('./nav/style/base.css') }}" />
+	<link rel="stylesheet" href="{{ asset('./nav/style/style.css') }}" />
+	<link rel="stylesheet" href="{{ asset('./styles/graph.css') }}"defer />
+	<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+	<script	src="https://kit.fontawesome.com/707f08755a.js" crossorigin="anonymous"></script>
+	<script src="{{ asset('./script/script.js')}}"></script>
+	<title>charts</title>
+</head>
+<body>
+	<header>
+		<img
+			src="{{ asset('./nav/img/logo_ardrar.png') }}"
+			alt="Logo de l'ADRAR Pôle Numérique"
+		/>
+		<nav>
+			<ul>
+				<li>
+					<a href="#"><i class="fa-solid fa-house"></i></a>
+				</li>
+			</ul>
+		</nav>
+		<div></div>
+	</header>
+	<div class="ct-chart"></div>
+	<script>
+		//conversion des données en JSON
+		const json = convertJson("{{ scores }}");
+		//construction du graphique
+		createChart(json);
+	</script>
+</body>
+</html>
