@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Dto\ScoreDto;
+use App\DTO\ScoreDTO;
 use App\Entity\Score;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,18 +23,17 @@ class ScoreRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return ScoreDto[] Returns an array of ScoreDto objects
+     * @return ScoreDTO[] Returns an array of ScoreDto objects
      */
     public function findScore(): array
     {
         return $this->createQueryBuilder('s')
-            ->select(sprintf(
-                'NEW %s(
+            ->select(
+                'NEW App\DTO\ScoreDTO(
                     t.name,
                     SUM(tk.valueToken)
-                )',
-                ScoreDto::class
-            ))
+                )'
+            )
             ->innerJoin('s.team', 't')
             ->innerJoin('s.tokens', 'tk')
             ->groupBy('t.name')

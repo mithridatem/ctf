@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Dto;
+namespace App\DTO;
 
-readonly class ScoreDto
+readonly class ScoreDTO
 {
     public function __construct(
         private string $team,
